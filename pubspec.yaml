@@ -1,8 +1,8 @@
 name: alibc
-version: 0.0.1
-author: hackett<hackettice@hotmail.com>
+version: 1.0.0
 homepage: https://github.com/hackett0/alibc
-description: 阿里百川SDK For Flutter.
+description: >
+  阿里百川SDK For Flutter.
 
 environment:
   sdk: ">=2.7.0 <3.0.0"

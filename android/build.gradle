@@ -38,7 +38,7 @@ android {
 }
 
 dependencies{
-    // 支付宝（可选） 
+    // 支付宝（可选）
     implementation 'com.alipay.android.app.cashier:standardcashier-single:15.6.5@aar'
     compileOnly 'com.alipay.mobile.android.securitysdk:apsecuritysdk-all:3.3.0'
 
