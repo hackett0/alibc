@@ -11,10 +11,10 @@ abstract class AlibcPageBase {
 // 展示参数配置
 class AlibcShowParams {
   AlibcShowParams(
-      {this.backUrl = '',
+      {this.backUrl = 'alisdk://',
       this.degradeUrl = '',
-      this.openType = '',
-      this.clientType = '',
+      this.openType = 'native',
+      this.clientType = 'taobao',
       this.title = '',
       this.proxy = '',
       this.bar = '',
