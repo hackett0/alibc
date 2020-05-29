@@ -5,24 +5,33 @@ import 'package:flutter/services.dart';
 
 class Alibc {
   static const MethodChannel _channel = const MethodChannel('alibc');
+  static bool _init = false;
 
   /// 初始化
   static Future<dynamic> init() async {
+    if (_init) {
+      return null;
+    }
+
+    _init = true;
     return await _channel.invokeMethod('init');
   }
 
   /// 淘宝账号授权登录
   static Future<dynamic> login() async {
+    await init();
     return await _channel.invokeMethod('login');
   }
 
   /// 检查是否登录
   static Future<dynamic> islogin() async {
+    await init();
     return await _channel.invokeMethod('islogin');
   }
 
   /// 退出淘宝账号授权
   static Future<dynamic> logout() async {
+    await init();
     return await _channel.invokeMethod('logout');
   }
 
@@ -35,6 +44,7 @@ class Alibc {
     if (show != null) data.addAll(show.toMap());
     if (taoke != null) data.addAll(taoke.toMap());
     if (track != null) data.addAll(track);
+    await init();
     return await _channel.invokeMethod('openURL', data);
   }
 
@@ -47,16 +57,19 @@ class Alibc {
     if (show != null) data.addAll(show.toMap());
     if (taoke != null) data.addAll(taoke.toMap());
     if (track != null) data.addAll(track);
+    await init();
     return await _channel.invokeMethod('openPage', data);
   }
 
   /// 是否使用同步淘客打点
   static Future<dynamic> setSyncForTaoke(bool issync) async {
+    await init();
     return await _channel.invokeMethod('setSyncForTaoke', {'sync': issync ? 'true' : 'false'});
   }
 
   /// 是否使用支付宝
   static Future<dynamic> setShouldUseAlipay(bool isuse) async {
+    await init();
     return await _channel.invokeMethod('setShouldUseAlipay', {'use': isuse ? 'true' : 'false'});
   }
 
@@ -64,21 +77,25 @@ class Alibc {
   static Future<dynamic> setTaokeParams(AlibcTaokeParams taoke) async {
     final Map<String, String> data = {};
     if (taoke != null) data.addAll(taoke.toMap());
+    await init();
     return await _channel.invokeMethod('setTaokeParams', data);
   }
 
   /// 渠道信息
   static Future<dynamic> setChannel(String type, String channel) async {
+    await init();
     return await _channel.invokeMethod('setChannel', {'type': type, 'channel': channel});
   }
 
   /// ISV的Code
   static Future<dynamic> setISVCode(String code) async {
+    await init();
     return await _channel.invokeMethod('setISVCode', {'code': code});
   }
 
   /// ISV的版本，通常为本APP版本
   static Future<dynamic> setISVVersion(String version) async {
+    await init();
     return await _channel.invokeMethod('setISVVersion', {'version': version});
   }
 }
