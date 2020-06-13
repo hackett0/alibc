@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-
-import 'package:flutter/services.dart';
 import 'package:alibc/alibc.dart';
 import 'package:alibc/data.dart';
 
@@ -23,22 +21,35 @@ class _MyAppState extends State<MyApp> {
   }
 
   Widget _buildButton(String title, ResultCallback callback) {
-    return Row(
-      children: <Widget>[
-        FlatButton(
-          child: Text(title),
-          onPressed: () {
-            callback()
-                .then((dynamic value) => setState(() {
-                      result[title] = value.toString();
-                    }))
-                .catchError((value) => setState(() {
-                      result[title] = value.toString();
-                    }));
-          },
-        ),
-        Text(result[title] ?? '结果:')
-      ],
+    return Container(
+      child: ListView(
+        primary: false,
+        shrinkWrap: true,
+        children: <Widget>[
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              FlatButton(
+                color: Colors.grey.withAlpha(100),
+                child: Text(title),
+                onPressed: () {
+                  callback()
+                      .then((dynamic value) => setState(() {
+                            result[title] = value.toString();
+                          }))
+                      .catchError((value) => setState(() {
+                            result[title] = value.toString();
+                          }));
+                },
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 100),
+                child: Text(result[title] ?? '结果:'),
+              )
+            ],
+          )
+        ],
+      ),
     );
   }
 
@@ -49,8 +60,9 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('阿里百川SDK示例'),
         ),
-        body: Center(
-            child: Column(
+        body: ListView(
+          primary: false,
+          shrinkWrap: true,
           children: <Widget>[
             _buildButton('初始化', _initTest),
             _buildButton('淘宝账号授权登录', _loginTest),
@@ -68,7 +80,7 @@ class _MyAppState extends State<MyApp> {
             _buildButton('ISVCode', _setISVCodeTest),
             _buildButton('ISV版本', _setISVVersionTest),
           ],
-        )),
+        ),
       ),
     );
   }
@@ -91,7 +103,6 @@ class _MyAppState extends State<MyApp> {
 
   Future<dynamic> _openURLTest() async {
     return await Alibc.openURL(
-        '',
         'https://uland.taobao.com/coupon/edetail?e=oSSExmvWXYYGQASttHIRqdYQwfcs8zoyxKXGKLqne1Hsx8cAhaH1SiZlT35kVCJr5R4kLBbVNWVsYgQTrXiDpq0TeAL%2BmcF17w9v818T2zNzQzL%2FHTq%2BPBemP0hpIIPvjDppvlX%2Bob8NlNJBuapvQ2MDg9t1zp0RRkY43XGTK8ko1aiZVhb9ykMuxoRQ3C%2BH5vl92ZYH25Cie%2FpBy9wBFg%3D%3D&traceId=0b15099215669559409745730e&union_lens=lensId:0b0b9f56_0c4c_16cd5da2c7f_3b31&xId=PwB9ZSWQxCtEwHxtbQc8iynshj5KEW16KP6OV6MAlpGpKCKmVGQMnjwQNhiGQpRY1gFyQHtqnYiv5wxGKTyCdf&tj1=1&tj2=1&relationId=518419440&activityId=23f4487e169647bd98b0d7fb2645947a',
         AlibcShowParams(
             backUrl: 'alisdk://',

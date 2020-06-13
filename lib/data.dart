@@ -1,5 +1,25 @@
 import 'dart:convert';
 
+// 响应数据结构
+class AlibcResult {
+  AlibcResult(this.code, this.msg, this.data);
+
+  factory AlibcResult.fromMap(Map<dynamic, dynamic> map) =>
+      map != null ? AlibcResult(map['code'], map['msg'], map['data']) : null;
+
+  factory AlibcResult.success(dynamic data) => AlibcResult(0, '', data);
+
+  bool get isSuccess => code == 0;
+
+  String toString() {
+    return "{'code': $code, 'msg': '$msg', 'data': ${data.toString()}}";
+  }
+
+  final int code;
+  final String msg;
+  final dynamic data;
+}
+
 abstract class AlibcPageBase {
   AlibcPageBase(this.type);
 
