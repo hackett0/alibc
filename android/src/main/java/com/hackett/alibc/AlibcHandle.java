@@ -32,7 +32,7 @@ public class AlibcHandle {
 
     // 初始化
     public void init(final Result result) {
-        AlibcTradeSDK.asyncInit(activity.getApplication(), new AlibcTradeInitCallback() {
+        AlibcTradeSDK.asyncInit(activity.getApplication(), new HashMap<String, String>(), new AlibcTradeInitCallback() {
             @Override
             public void onSuccess() {
                 result.success(AlibcResult.success(null));

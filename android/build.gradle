@@ -3,9 +3,9 @@ version '1.0'
 
 buildscript {
     repositories {
+        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
         google()
         jcenter()
-        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
     }
 
     dependencies {
@@ -15,12 +15,12 @@ buildscript {
 
 rootProject.allprojects {
     repositories {
-        google()
-        jcenter()
-        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
         maven {
             url "http://repo.baichuan-android.taobao.com/content/groups/BaichuanRepositories/"
         }
+        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+        google()
+        jcenter()        
     }
 }
 
@@ -38,23 +38,19 @@ android {
 }
 
 dependencies{
-    // 支付宝（可选）
-    implementation 'com.alipay.android.app.cashier:standardcashier-single:15.6.5@aar'
-    compileOnly 'com.alipay.mobile.android.securitysdk:apsecuritysdk-all:3.3.0'
-
     // 登陆 
-    implementation 'com.ali.auth.sdk:alibabauth_core:2.0.0.6@aar'
-    implementation 'com.ali.auth.sdk:alibabauth_ui:2.0.0.6@aar'
-    implementation 'com.ali.auth.sdk:alibabauth_ext:2.0.0.6@aar'
+    implementation 'com.ali.auth.sdk:alibabauth_core:2.0.0.7@aar'
+    implementation 'com.ali.auth.sdk:alibabauth_ui:2.0.0.7@aar'
+    implementation 'com.ali.auth.sdk:alibabauth_ext:2.0.0.7@aar'
 
     // 安全组件 
-    implementation 'com.taobao.android:securityguardaar3:5.4.171@aar'
-    implementation 'com.taobao.android:securitybodyaar3:5.4.99@aar'
-    implementation 'com.taobao.android:avmpaar3:5.4.36@aar'
-    implementation 'com.taobao.android:sgmiddletieraar3:5.4.9@aar'
+    implementation 'com.taobao.android:securityguardaar3:5.4.200@aar'
+    implementation 'com.taobao.android:securitybodyaar3:5.4.200@aar'
+    implementation 'com.taobao.android:avmpaar3:5.4.200@aar'
+    implementation 'com.taobao.android:sgmiddletieraar3:5.4.200@aar'
 
     // Mtop 
-    implementation 'com.taobao.android:mtopsdk_allinone_open:3.1.2.5@jar'
+    implementation 'com.taobao.android:mtopsdk_allinone_open:3.1.7.2@jar'
 
     // applink 
     implementation 'com.alibaba.sdk.android:alibc_link_partner:4.1.15@aar'
@@ -64,8 +60,8 @@ dependencies{
     implementation 'com.alibaba.mtl:app-monitor-sdk:2.6.4.5_for_bc'
 
     // 电商基础组件 
-    implementation 'com.alibaba.sdk.android:AlibcTradeCommon:4.0.0.8@aar'
-    implementation 'com.alibaba.sdk.android:AlibcTradeBiz:4.0.0.8@aar'
-    implementation 'com.alibaba.sdk.android:nb_trade:4.0.0.8@aar'
-    implementation 'com.alibaba:fastjson:1.2.41'
+    implementation 'com.alibaba.sdk.android:AlibcTradeCommon:4.0.0.14@aar'
+    implementation 'com.alibaba.sdk.android:AlibcTradeBiz:4.0.0.14@aar'
+    implementation 'com.alibaba.sdk.android:nb_trade:4.0.0.14@aar'
+    implementation 'com.alibaba:fastjson:1.2.52'
 }
