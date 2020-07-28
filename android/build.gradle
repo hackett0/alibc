@@ -64,4 +64,5 @@ dependencies{
     implementation 'com.alibaba.sdk.android:AlibcTradeBiz:4.0.0.14@aar'
     implementation 'com.alibaba.sdk.android:nb_trade:4.0.0.14@aar'
     implementation 'com.alibaba:fastjson:1.2.52'
+    implementation 'com.android.support:support-annotations:28.0.0'
 }

@@ -33,65 +33,84 @@ public class AlibcHelpers {
     }
 
     public static AlibcBasePage callPageParams(MethodCall call) {
-        String type = (String) call.argument("type");
-        switch (type)
-        {
-            case "detail": return new AlibcDetailPage(callParam(call, "itemId", ""));
-            case "shop": return new AlibcShopPage(callParam(call, "shopId", ""));
-            case "cart": return new AlibcMyCartsPage();
-            case "addCart": return new AlibcAddCartPage(callParam(call, "itemId", ""));
+        final Map data = call.argument("PageParams");
+        if (data == null) {
+            return null;
+        }
 
-            // status   默认跳转页面(0:全部, 1:待付款, 2:待发货, 3:待收货, 4:待评价)
+        switch ((String) data.get("type")) {
+            case "detail":
+                return new AlibcDetailPage((String) data.get("itemId"));
+            case "shop":
+                return new AlibcShopPage((String) data.get("shopId"));
+            case "cart":
+                return new AlibcMyCartsPage();
+            case "addCart":
+                return new AlibcAddCartPage((String) data.get("itemId"));
+
+            // status 默认跳转页面(0:全部, 1:待付款, 2:待发货, 3:待收货, 4:待评价)
             // allOrder 为 true 显示所有订单，为false只显示通过当前app下单的订单
-            case "myOrder": return new AlibcMyOrdersPage(
-                    Integer.parseInt(callParam(call, "status", "0")),
-                    callParam(call, "allOrder", "true") == "true");
-            default: return null;
+            case "myOrder":
+                return new AlibcMyOrdersPage(Integer.parseInt((String) data.get("status")),
+                        (String) data.get("allOrder") == "true");
+            default:
+                return null;
         }
     }
 
     public static AlibcShowParams callShowParams(MethodCall call) {
+        final Map data = call.argument("ShowParams");
+        if (data == null) {
+            return null;
+        }
+
         AlibcShowParams params = new AlibcShowParams();
-        params.setBackUrl(callParam(call, "backUrl", ""));
-        params.setDegradeUrl(callParam(call, "degradeUrl", ""));
-        params.setOpenType(callParam(call, "openType", "auto") == "native" ? OpenType.Native : OpenType.Auto);
-        params.setClientType(callParam(call, "clientType", "taobao"));
-        params.setTitle(callParam(call, "title", ""));
-        params.setProxyWebview(callParam(call, "proxy", "false") == "true");
-        params.setShowTitleBar(callParam(call, "bar", "false") == "true");
-        params.setNativeOpenFailedMode(fallModeType(callParam(call, "failedMode", "")));
-        params.setOriginalOpenType(callParam(call, "originalOpenType", "auto") == "native" ? OpenType.Native : OpenType.Auto);
+        if (data.containsKey("backUrl"))
+            params.setBackUrl((String) data.get("backUrl"));
+        if (data.containsKey("degradeUrl"))
+            params.setDegradeUrl((String) data.get("degradeUrl"));
+        if (data.containsKey("openType"))
+            params.setOpenType((String) data.get("openType") == "native" ? OpenType.Native : OpenType.Auto);
+        if (data.containsKey("clientType"))
+            params.setClientType((String) data.get("clientType"));
+        if (data.containsKey("title"))
+            params.setTitle((String) data.get("title"));
+        if (data.containsKey("proxy"))
+            params.setProxyWebview((String) data.get("proxy") == "true");
+        if (data.containsKey("bar"))
+            params.setShowTitleBar((String) data.get("bar") == "true");
+        if (data.containsKey("failedMode"))
+            params.setNativeOpenFailedMode(fallModeType((String) data.get("failedMode")));
+        if (data.containsKey("originalOpenType"))
+            params.setOriginalOpenType(
+                    (String) data.get("originalOpenType") == "native" ? OpenType.Native : OpenType.Auto);
+
         return params;
     }
 
     public static AlibcTaokeParams callTaokeParams(MethodCall call) {
-        AlibcTaokeParams params = new AlibcTaokeParams(
-                callParam(call, "pid", ""),
-                callParam(call, "subPid", ""),
-                callParam(call, "unionId", ""));
-        params.setAdzoneid(callParam(call, "adzoneId", ""));
-        // params.setExtraParams(Map<String, String> var1);
-        return params;
-    }
-
-    public static Map<String, String> callTrackParams(MethodCall call) {
-        Map<String, String> params = new HashMap();
-        return params;
-    }
-
-    public static String callParam(MethodCall call, String key, String value) {
-        if (call.hasArgument(key)) {
-            return (String)call.argument(key);
+        final Map data = call.argument("TaokeParams");
+        if (data == null) {
+            return null;
         }
-        return value;
+
+        AlibcTaokeParams params = new AlibcTaokeParams((String) data.get("pid"), (String) data.get("subPid"),
+                (String) data.get("unionId"));
+        params.setAdzoneid((String) data.get("adzoneId"));
+        params.setExtraParams((Map) call.argument("ExtraParams"));
+        return params;
     }
 
     public static AlibcFailModeType fallModeType(String value) {
         switch (value) {
-            case "brower": return AlibcFailModeType.AlibcNativeFailModeJumpBROWER;
-            case "download": return AlibcFailModeType.AlibcNativeFailModeJumpDOWNLOAD;
-            case "h5": return AlibcFailModeType.AlibcNativeFailModeJumpH5;
-            default: return AlibcFailModeType.AlibcNativeFailModeNONE;
+            case "brower":
+                return AlibcFailModeType.AlibcNativeFailModeJumpBROWER;
+            case "download":
+                return AlibcFailModeType.AlibcNativeFailModeJumpDOWNLOAD;
+            case "h5":
+                return AlibcFailModeType.AlibcNativeFailModeJumpH5;
+            default:
+                return AlibcFailModeType.AlibcNativeFailModeNONE;
         }
     }
 }

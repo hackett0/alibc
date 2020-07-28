@@ -99,13 +99,13 @@ class AlibcTaokeParams {
   final String adzoneId;
   final Map<String, String> extraParams;
 
-  Map<String, String> toMap() {
+  Map<String, dynamic> toMap() {
     return {
       'pid': pid,
       'unionId': unionId,
       'subPid': subPid,
       'adzoneId': adzoneId,
-      'extraParams': extraParams != null ? jsonEncode(extraParams) : '',
+      'extraParams': extraParams,
     };
   }
 }

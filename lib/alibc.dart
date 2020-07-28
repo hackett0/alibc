@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:alibc/data.dart';
 import 'package:flutter/services.dart';
@@ -42,12 +43,12 @@ class Alibc {
   /// 打开链接
   static Future<AlibcResult> openURL(String url, AlibcShowParams show,
       {String kit, AlibcTaokeParams taoke, Map<String, String> track}) async {
-    final Map<String, String> data = {};
+    final Map<String, dynamic> data = {};
     data['kit'] = kit;
     data['url'] = url;
-    if (show != null) data.addAll(show.toMap());
-    if (taoke != null) data.addAll(taoke.toMap());
-    if (track != null) data.addAll(track);
+    if (show != null) data['ShowParams'] = show.toMap();
+    if (taoke != null) data['TaokeParams'] = taoke.toMap();
+    if (track != null) data['TrackParams'] = track;
     var r = await init();
     return r.isSuccess ? await invoke('openURL', data) : r;
   }
@@ -56,11 +57,11 @@ class Alibc {
   /// page: [AlibcDetailPage] [AlibcShopPage] [AlibcMyCartsPage] [AlibcAddCartPage] [AlibcMyOrdersPage]
   static Future<AlibcResult> openPage(AlibcPageBase page, AlibcShowParams show,
       {AlibcTaokeParams taoke, Map<String, String> track}) async {
-    final Map<String, String> data = {};
-    if (page != null) data.addAll(page.toMap());
-    if (show != null) data.addAll(show.toMap());
-    if (taoke != null) data.addAll(taoke.toMap());
-    if (track != null) data.addAll(track);
+    final Map<String, dynamic> data = {};
+    if (page != null) data['PageParams'] = page.toMap();
+    if (show != null) data['ShowParams'] = show.toMap();
+    if (taoke != null) data['TaokeParams'] = taoke.toMap();
+    if (track != null) data['TrackParams'] = track;
     var r = await init();
     return r.isSuccess ? await invoke('openPage', data) : r;
   }
@@ -79,8 +80,8 @@ class Alibc {
 
   // 淘宝客参数
   static Future<AlibcResult> setTaokeParams(AlibcTaokeParams taoke) async {
-    final Map<String, String> data = {};
-    if (taoke != null) data.addAll(taoke.toMap());
+    final Map<String, dynamic> data = {};
+    if (taoke != null) data['TaokeParams'] = taoke.toMap();
     var r = await init();
     return r.isSuccess ? await invoke('setTaokeParams', data) : r;
   }
