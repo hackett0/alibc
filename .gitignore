@@ -6,3 +6,4 @@
 
 build/
 example/android/gradle/wrapper/gradle-wrapper.properties
+example/pubspec.lock
