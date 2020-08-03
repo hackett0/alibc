@@ -5,3 +5,4 @@
 .pub/
 
 build/
+example/android/gradle/wrapper/gradle-wrapper.properties
