@@ -8,7 +8,8 @@
 注册阿里百川账号，创建应用，申请权限
 
 ## 2. 生成安全图片
-登录阿里百川开发者控制台, 获取V5版安全图片，放入res/drawable/yw_1222.jpg
+- 登录阿里百川开发者控制台, 获取V5版安全图片，放入res/drawable/yw_1222_baichuan.jpg
+- 4.0.0.15版本开始，安全图片的名称改成 yw_1222_baichuan.jpg
 
 ## 3. 修改文件
 修改android目录下AndroidManifest.xml文件，增加内容:
