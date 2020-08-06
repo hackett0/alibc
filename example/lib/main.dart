@@ -105,13 +105,13 @@ class _MyAppState extends State<MyApp> {
     return await Alibc.openURL(
         'https://uland.taobao.com/coupon/edetail?e=oSSExmvWXYYGQASttHIRqdYQwfcs8zoyxKXGKLqne1Hsx8cAhaH1SiZlT35kVCJr5R4kLBbVNWVsYgQTrXiDpq0TeAL%2BmcF17w9v818T2zNzQzL%2FHTq%2BPBemP0hpIIPvjDppvlX%2Bob8NlNJBuapvQ2MDg9t1zp0RRkY43XGTK8ko1aiZVhb9ykMuxoRQ3C%2BH5vl92ZYH25Cie%2FpBy9wBFg%3D%3D&traceId=0b15099215669559409745730e&union_lens=lensId:0b0b9f56_0c4c_16cd5da2c7f_3b31&xId=PwB9ZSWQxCtEwHxtbQc8iynshj5KEW16KP6OV6MAlpGpKCKmVGQMnjwQNhiGQpRY1gFyQHtqnYiv5wxGKTyCdf&tj1=1&tj2=1&relationId=518419440&activityId=23f4487e169647bd98b0d7fb2645947a',
         AlibcShowParams(
-            backUrl: 'alisdk://',
+            backUrl: 'alibcexample://',
             degradeUrl: '',
             openType: 'native',
             clientType: 'taobao',
-            title: '',
+            title: 'true',
             proxy: '',
-            bar: '',
+            bar: 'truetrue',
             failedMode: 'h5',
             originalOpenType: ''));
   }
@@ -120,13 +120,13 @@ class _MyAppState extends State<MyApp> {
     return await Alibc.openPage(
         AlibcDetailPage('618165954008'),
         AlibcShowParams(
-            backUrl: 'alisdk://',
+            backUrl: 'alibcexample://',
             degradeUrl: '',
             openType: 'native',
             clientType: 'taobao',
-            title: '',
+            title: 'example',
             proxy: '',
-            bar: '',
+            bar: 'true',
             failedMode: 'h5',
             originalOpenType: ''));
   }
@@ -135,13 +135,13 @@ class _MyAppState extends State<MyApp> {
     return await Alibc.openPage(
         AlibcShopPage('65626181'),
         AlibcShowParams(
-            backUrl: 'alisdk://',
+            backUrl: 'alibcexample://',
             degradeUrl: '',
             openType: 'native',
             clientType: 'taobao',
-            title: '',
+            title: 'example',
             proxy: '',
-            bar: '',
+            bar: 'true',
             failedMode: 'h5',
             originalOpenType: ''));
   }
@@ -150,13 +150,13 @@ class _MyAppState extends State<MyApp> {
     return await Alibc.openPage(
         AlibcMyCartsPage(),
         AlibcShowParams(
-            backUrl: 'alisdk://',
+            backUrl: 'alibcexample://',
             degradeUrl: '',
             openType: 'native',
             clientType: 'taobao',
-            title: '',
+            title: 'example',
             proxy: '',
-            bar: '',
+            bar: 'true',
             failedMode: 'h5',
             originalOpenType: ''));
   }
@@ -165,13 +165,13 @@ class _MyAppState extends State<MyApp> {
     return await Alibc.openPage(
         AlibcAddCartPage('618165954008'),
         AlibcShowParams(
-            backUrl: 'alisdk://',
+            backUrl: 'alibcexample://',
             degradeUrl: '',
             openType: 'native',
             clientType: 'taobao',
-            title: '',
+            title: 'example',
             proxy: '',
-            bar: '',
+            bar: 'true',
             failedMode: 'h5',
             originalOpenType: ''));
   }
@@ -180,13 +180,13 @@ class _MyAppState extends State<MyApp> {
     return await Alibc.openPage(
         AlibcMyOrdersPage(0, true),
         AlibcShowParams(
-            backUrl: 'alisdk://',
+            backUrl: 'alibcexample://',
             degradeUrl: '',
             openType: 'native',
             clientType: 'taobao',
-            title: '',
+            title: 'example',
             proxy: '',
-            bar: '',
+            bar: 'true',
             failedMode: 'h5',
             originalOpenType: ''));
   }
@@ -204,8 +204,8 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<dynamic> _setTaokeParamsTest() async {
-    return await Alibc.setTaokeParams(
-        AlibcTaokeParams(pid: 'mm_112883640_11584347_72287650277', adzoneId: '72287650277'));
+    return await Alibc.setTaokeParams(AlibcTaokeParams(
+        pid: 'mm_112883640_11584347_72287650277', adzoneId: '72287650277'));
   }
 
   Future<dynamic> _setChannelTest() async {}
