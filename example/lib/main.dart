@@ -64,7 +64,6 @@ class _MyAppState extends State<MyApp> {
           primary: false,
           shrinkWrap: true,
           children: <Widget>[
-            _buildButton('初始化', _initTest),
             _buildButton('淘宝账号授权登录', _loginTest),
             _buildButton('检查是否登录', _isloginTest),
             _buildButton('退出淘宝账号授权', _logoutTest),
@@ -72,9 +71,7 @@ class _MyAppState extends State<MyApp> {
             _buildButton('打开淘宝店铺', _openShopTest),
             _buildButton('打开淘宝购物车', _openMyCartsTest),
             _buildButton('添加购物车', _openAddCartTest),
-            _buildButton('打开淘宝订单', _openMyOrdersTest),
             _buildButton('淘客打点同步/异步', _setSyncForTaokeTest),
-            _buildButton('是否使用支付宝', _setShouldUseAlipayTest),
             _buildButton('淘宝客配置', _setTaokeParamsTest),
             _buildButton('渠道信息', _setChannelTest),
             _buildButton('ISVCode', _setISVCodeTest),
@@ -83,10 +80,6 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
     );
-  }
-
-  Future<dynamic> _initTest() async {
-    return await Alibc.init();
   }
 
   Future<dynamic> _loginTest() async {
@@ -176,31 +169,10 @@ class _MyAppState extends State<MyApp> {
             originalOpenType: ''));
   }
 
-  Future<dynamic> _openMyOrdersTest() async {
-    return await Alibc.openPage(
-        AlibcMyOrdersPage(0, true),
-        AlibcShowParams(
-            backUrl: 'alibcexample://',
-            degradeUrl: '',
-            openType: 'native',
-            clientType: 'taobao',
-            title: 'example',
-            proxy: '',
-            bar: 'true',
-            failedMode: 'h5',
-            originalOpenType: ''));
-  }
-
   bool isSyncForTaoke = false;
   Future<dynamic> _setSyncForTaokeTest() async {
     isSyncForTaoke = !isSyncForTaoke;
     return await Alibc.setSyncForTaoke(isSyncForTaoke);
-  }
-
-  bool isShouldUseAlipay = false;
-  Future<dynamic> _setShouldUseAlipayTest() async {
-    isShouldUseAlipay = !isShouldUseAlipay;
-    return await Alibc.setShouldUseAlipay(isShouldUseAlipay);
   }
 
   Future<dynamic> _setTaokeParamsTest() async {

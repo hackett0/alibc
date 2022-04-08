@@ -2,15 +2,16 @@ import 'dart:convert';
 
 // 响应数据结构
 class AlibcResult {
-  AlibcResult(this.code, this.msg, this.data);
+  const AlibcResult(this.code, this.msg, this.data);
 
   factory AlibcResult.fromMap(Map<dynamic, dynamic> map) =>
-      map != null ? AlibcResult(map['code'], map['msg'], map['data']) : null;
+      AlibcResult(map['code'], map['msg'], map['data']);
 
   factory AlibcResult.success(dynamic data) => AlibcResult(0, '', data);
 
   bool get isSuccess => code == 0;
 
+  @override
   String toString() {
     return "{'code': $code, 'msg': '$msg', 'data': ${data.toString()}}";
   }
@@ -21,7 +22,7 @@ class AlibcResult {
 }
 
 abstract class AlibcPageBase {
-  AlibcPageBase(this.type);
+  const AlibcPageBase(this.type);
 
   final String type;
 
@@ -30,7 +31,7 @@ abstract class AlibcPageBase {
 
 // 展示参数配置
 class AlibcShowParams {
-  AlibcShowParams(
+  const AlibcShowParams(
       {this.backUrl = 'alisdk://',
       this.degradeUrl = '',
       this.openType = 'native',
@@ -92,7 +93,12 @@ class AlibcShowParams {
 // 注：1、如果走adzoneId的方式分佣打点，需要在extraParams中显式传入taokeAppkey，否则打点失败；
 //     2、如果是打开店铺页面(shop)，需要在extraParams中显式传入sellerId，否则同步打点转链失败）
 class AlibcTaokeParams {
-  AlibcTaokeParams({this.pid = '', this.unionId = '', this.subPid = '', this.adzoneId = '', this.extraParams});
+  const AlibcTaokeParams(
+      {this.pid = '',
+      this.unionId = '',
+      this.subPid = '',
+      this.adzoneId = '',
+      this.extraParams = const {}});
   final String pid;
   final String unionId;
   final String subPid;
@@ -112,7 +118,7 @@ class AlibcTaokeParams {
 
 // 商品详情页
 class AlibcDetailPage extends AlibcPageBase {
-  AlibcDetailPage(this.itemId) : super('detail');
+  const AlibcDetailPage(this.itemId) : super('detail');
   final String itemId;
 
   @override
@@ -123,7 +129,7 @@ class AlibcDetailPage extends AlibcPageBase {
 
 // 店铺页
 class AlibcShopPage extends AlibcPageBase {
-  AlibcShopPage(this.shopId) : super('shop');
+  const AlibcShopPage(this.shopId) : super('shop');
   final String shopId;
 
   @override
@@ -134,7 +140,7 @@ class AlibcShopPage extends AlibcPageBase {
 
 // 购物车页
 class AlibcMyCartsPage extends AlibcPageBase {
-  AlibcMyCartsPage() : super('cart');
+  const AlibcMyCartsPage() : super('cart');
 
   @override
   Map<String, String> toMap() {
@@ -144,26 +150,11 @@ class AlibcMyCartsPage extends AlibcPageBase {
 
 // 加入购物车
 class AlibcAddCartPage extends AlibcPageBase {
-  AlibcAddCartPage(this.itemId) : super('addCart');
+  const AlibcAddCartPage(this.itemId) : super('addCart');
   final String itemId;
 
   @override
   Map<String, String> toMap() {
     return {'type': type, 'itemId': itemId};
-  }
-}
-
-// 我的订单页
-// status   默认跳转页面(0:全部, 1:待付款, 2:待发货, 3:待收货, 4:待评价)
-// allOrder 为 true 显示所有订单，为false只显示通过当前app下单的订单
-class AlibcMyOrdersPage extends AlibcPageBase {
-  AlibcMyOrdersPage(this.status, this.allOrder) : super('myOrder');
-
-  final int status;
-  final bool allOrder;
-
-  @override
-  Map<String, String> toMap() {
-    return {'type': type, 'status': status.toString(), 'allOrder': allOrder ? 'true' : 'false'};
   }
 }

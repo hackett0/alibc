@@ -2,15 +2,13 @@ group 'com.hackett.alibc'
 version '1.0'
 
 buildscript {
-    ext.kotlin_version = '1.3.50'
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.android.tools.build:gradle:4.1.0'
     }
 }
 
@@ -21,48 +19,40 @@ rootProject.allprojects {
         }
         maven{ url 'https://maven.aliyun.com/repository/google'}
         google()
-        jcenter()     
+        mavenCentral()
     }
 }
 
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 28
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
+    compileSdkVersion 31
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
+
     defaultConfig {
         minSdkVersion 16
-    }
-    lintOptions {
-        disable 'InvalidPackage'
     }
 }
 
 dependencies{
-    //noinspection GradleDependency
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    //登陆
-    implementation(name:'alibabauth_core', ext:'jar')
-    implementation(name:'alibabauth_ui', ext:'aar')
-    implementation(name:'alibabauth_ext', ext:'jar')
-    //安全组件
-    implementation(name:'securityguardaar3', ext:'aar')
-    implementation(name:'securitybodyaar3', ext:'aar')
-    implementation(name:'avmpaar3', ext:'aar')
-    implementation(name:'MiddleTierSDK-external-debug', ext:'aar')
-    //Mtop
-    implementation(name:'mtopsdk_allinone_open', ext:'jar')
-    //applink
-    implementation(name:'alibc_link_partner', ext:'aar')
-    //ut
-    implementation(name:'utdid4all', ext:'jar')
-    implementation(name:'app-monitor-sdk', ext:'jar')
-    // 电商基础组件
-    implementation(name:'AlibcTradeCommon', ext:'aar')
-    implementation(name:'AlibcTradeBiz', ext:'aar')
-    implementation(name:'nb_trade', ext:'aar')
+    implementation(name:'alibabauth_core-2.0.0.12', ext:'aar')
+    implementation(name:'alibabauth_ext-2.0.0.12', ext:'aar')
+    implementation(name:'alibabauth_ui-2.0.0.12', ext:'aar')
+    implementation(name:'alibc_link_partner-4.1.27', ext:'aar')
+    implementation(name:'AlibcTradeBiz-4.0.0.27', ext:'aar')
+    implementation(name:'AlibcTradeCommon-4.0.0.27', ext:'aar')
+    implementation(name:'app-monitor-sdk-2.6.4.11_for_bc', ext:'jar')
+    implementation(name:'miscaar3-5.5.9-preInstall-misc', ext:'aar')
+    implementation(name:'mtopsdk_allinone_open-3.1.2.5', ext:'jar')
+    implementation(name:'nb_trade-4.0.0.27', ext:'aar')
+    implementation(name:'nocaptchaaar3-5.5.8-preInstall', ext:'aar')
+    implementation(name:'securitybodyaar3-5.5.61-preInstall', ext:'aar')
+    implementation(name:'securityguardaar3-5.5.51-preInstall', ext:'aar')
+    implementation(name:'sgmiddletieraar3-5.5.53-preInstall', ext:'aar')
+    implementation(name:'utdid4all-1.1.5.3_proguard', ext:'jar')
     implementation 'com.alibaba:fastjson:1.2.41@jar'
 }

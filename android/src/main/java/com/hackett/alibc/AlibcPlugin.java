@@ -11,7 +11,6 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
-import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 public class AlibcPlugin implements FlutterPlugin, MethodCallHandler, ActivityAware {
   private MethodChannel channel;
@@ -40,18 +39,9 @@ public class AlibcPlugin implements FlutterPlugin, MethodCallHandler, ActivityAw
     handle.setActivity(activityPluginBinding.getActivity());
   }
 
-  public static void registerWith(Registrar registrar) {
-    handle = new AlibcHandle();
-    handle.setActivity(registrar.activity());
-    final MethodChannel channel = new MethodChannel(registrar.messenger(), "alibc");
-    channel.setMethodCallHandler(new AlibcPlugin());
-  }
-
   @Override
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
-    if (call.method.equals("init")) {
-      handle.init(result);
-    } else if (call.method.equals("login")) {
+    if (call.method.equals("login")) {
       handle.login(result);
     } else if (call.method.equals("islogin")) {
       handle.islogin(result);
@@ -76,8 +66,6 @@ public class AlibcPlugin implements FlutterPlugin, MethodCallHandler, ActivityAw
 
     }else if (call.method.equals("setSyncForTaoke")){
       handle.setSyncForTaoke((String)call.argument("sync") == "true");
-    } else if (call.method.equals("setShouldUseAlipay")) {
-      handle.setShouldUseAlipay((String)call.argument("use") == "true");
     } else if (call.method.equals("setTaokeParams")){
       handle.setTaokeParams(AlibcHelpers.callTaokeParams(call));
     } else if (call.method.equals("setChannel")) {

@@ -7,7 +7,6 @@ import com.alibaba.baichuan.android.trade.page.AlibcAddCartPage;
 import com.alibaba.baichuan.android.trade.page.AlibcBasePage;
 import com.alibaba.baichuan.android.trade.page.AlibcDetailPage;
 import com.alibaba.baichuan.android.trade.page.AlibcMyCartsPage;
-import com.alibaba.baichuan.android.trade.page.AlibcMyOrdersPage;
 import com.alibaba.baichuan.android.trade.page.AlibcShopPage;
 import com.alibaba.baichuan.trade.biz.applink.adapter.AlibcFailModeType;
 import com.alibaba.baichuan.trade.biz.core.taoke.AlibcTaokeParams;
@@ -47,12 +46,6 @@ public class AlibcHelpers {
                 return new AlibcMyCartsPage();
             case "addCart":
                 return new AlibcAddCartPage((String) data.get("itemId"));
-
-            // status 默认跳转页面(0:全部, 1:待付款, 2:待发货, 3:待收货, 4:待评价)
-            // allOrder 为 true 显示所有订单，为false只显示通过当前app下单的订单
-            case "myOrder":
-                return new AlibcMyOrdersPage(Integer.parseInt((String) data.get("status")),
-                        (String) data.get("allOrder") == "true");
             default:
                 return null;
         }
@@ -77,8 +70,6 @@ public class AlibcHelpers {
             params.setTitle((String) data.get("title"));
         if (data.containsKey("proxy"))
             params.setProxyWebview((String) data.get("proxy") == "true");
-        if (data.containsKey("bar"))
-            params.setShowTitleBar((String) data.get("bar") == "true");
         if (data.containsKey("failedMode"))
             params.setNativeOpenFailedMode(fallModeType((String) data.get("failedMode")));
         if (data.containsKey("originalOpenType"))

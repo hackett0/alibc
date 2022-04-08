@@ -7,10 +7,10 @@ import android.webkit.WebViewClient;
 import com.ali.auth.third.core.model.Session;
 import com.alibaba.baichuan.android.trade.AlibcTrade;
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
-import com.alibaba.baichuan.android.trade.callback.AlibcTradeCallback;
 import com.alibaba.baichuan.android.trade.callback.AlibcTradeInitCallback;
 import com.alibaba.baichuan.android.trade.model.AlibcShowParams;
 import com.alibaba.baichuan.android.trade.page.AlibcBasePage;
+import com.alibaba.baichuan.trade.biz.AlibcTradeCallback;
 import com.alibaba.baichuan.trade.biz.context.AlibcTradeResult;
 import com.alibaba.baichuan.trade.biz.core.taoke.AlibcTaokeParams;
 import com.alibaba.baichuan.trade.biz.login.AlibcLogin;
@@ -19,28 +19,30 @@ import com.alibaba.baichuan.trade.biz.login.AlibcLoginCallback;
 import java.util.HashMap;
 import java.util.Map;
 
-import io.flutter.plugin.common.PluginRegistry.Registrar;
 import io.flutter.plugin.common.MethodChannel.Result;
-import io.flutter.plugin.common.MethodCall;
 
 public class AlibcHandle {
     private Activity activity;
+    private boolean isInit = false;
 
     public void setActivity(Activity activity) {
         this.activity = activity;
+
+        if (!isInit) {
+            init();
+            isInit = true;
+        }
     }
 
     // 初始化
-    public void init(final Result result) {
-        AlibcTradeSDK.asyncInit(activity.getApplication(), new HashMap<String, String>(), new AlibcTradeInitCallback() {
+    public void init() {
+        AlibcTradeSDK.asyncInit(activity.getApplication(), new AlibcTradeInitCallback() {
             @Override
             public void onSuccess() {
-                result.success(AlibcResult.success(null));
             }
 
             @Override
             public void onFailure(int code, String msg) {
-                result.success(AlibcResult.error(code, msg, null));
             }
         });
     }
@@ -87,7 +89,7 @@ public class AlibcHandle {
             alibcLogin.logout(new AlibcLoginCallback() {
                 @Override
                 public void onSuccess(int code, String openId, String userNick) {
-                    Map<String, Object> map = new HashMap();
+                    Map<String, Object> map = new HashMap<String, Object>();
                     map.put("openId", openId);
                     map.put("userNick", userNick);
                     result.success(AlibcResult.success(map));
@@ -149,32 +151,27 @@ public class AlibcHandle {
 
     // 全局设置
     // 设置淘客打点策略 是否异步
-    public void setSyncForTaoke(boolean sync){
+    public void setSyncForTaoke(boolean sync) {
         AlibcTradeSDK.setSyncForTaoke(sync);
     }
 
-    // 是否使用支付宝
-    public void setShouldUseAlipay(boolean use){
-        AlibcTradeSDK.setShouldUseAlipay(use);
-    }
-
     // 淘宝客参数
-    public void setTaokeParams(AlibcTaokeParams params){
+    public void setTaokeParams(AlibcTaokeParams params) {
         AlibcTradeSDK.setTaokeParams(params);
     }
 
     // 渠道信息
-    public void setChannel(String type, String channel){
+    public void setChannel(String type, String channel) {
         AlibcTradeSDK.setChannel(type, channel);
     }
 
     // ISV的Code
-    public void setISVCode(String code){
+    public void setISVCode(String code) {
         AlibcTradeSDK.setISVCode(code);
     }
 
     // ISV的版本，通常为本APP版本
-    public void setISVVersion(String version){
+    public void setISVVersion(String version) {
         AlibcTradeSDK.setISVVersion(version);
     }
 }
